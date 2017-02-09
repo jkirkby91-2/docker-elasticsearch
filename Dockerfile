@@ -26,11 +26,12 @@ RUN set -ex \
     chown -R elasticsearch:elasticsearch "$path"; \
   done
 
-COPY confs/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+RUN /usr/share/elasticsearch/bin/plugin install --batch lmenezes/elasticsearch-kopf
 
-COPY confs/elasticsearch/logging.yml /usr/share/elasticsearch/config/logging.yml
+COPY confs/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 
-# Copy supervisor conf
+COPY confs/elasticsearch/logging.yml /etc/elasticsearch/logging.yml
+
 COPY confs/supervisord/supervisord.conf /etc/supervisord.conf
 
 COPY start.sh /start.sh
