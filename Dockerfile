@@ -17,7 +17,7 @@ WORKDIR /usr/share/elasticsearch
 
 RUN set -ex \
   && for path in \
-  ./data \
+  ./srv \
     ./logs \
     ./config \
     ./config/scripts \
