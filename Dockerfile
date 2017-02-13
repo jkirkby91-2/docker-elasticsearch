@@ -42,6 +42,4 @@ VOLUME ["/usr/share/elasticsearch"]
 
 EXPOSE 9200 9300
 
-USER elasticsearch
-
 CMD ["/bin/bash", "/start.sh"]
