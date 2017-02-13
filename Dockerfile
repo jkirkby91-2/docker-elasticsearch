@@ -38,11 +38,10 @@ COPY start.sh /start.sh
 
 RUN chmod 777 /start.sh
 
-USER elasticsearch
-
 VOLUME ["/usr/share/elasticsearch"]
 
 EXPOSE 9200 9300
 
-# Set entrypoint
+USER elasticsearch
+
 CMD ["/bin/bash", "/start.sh"]
