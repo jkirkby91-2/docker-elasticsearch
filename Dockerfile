@@ -34,7 +34,7 @@ COPY confs/elasticsearch/logging.yml /etc/elasticsearch/logging.yml
 
 COPY confs/supervisord/supervisord.conf /etc/supervisord.conf
 
-COPY confs/apparmor/elasticsearch.conf /etc/apparmor/elasticsearch.conf
+COPY confs/apparmor/elasticsearch.conf /etc/apparmor.d/elasticsearch.conf
 
 COPY start.sh /start.sh
 
