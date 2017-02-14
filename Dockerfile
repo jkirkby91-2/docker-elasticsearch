@@ -17,18 +17,15 @@ RUN wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN set -ex && for path in data logs config config/scripts; do \
-        mkdir -p "$path"; \
-        chown -R elasticsearch:elasticsearch "$path"; \
-    done
-
-RUN chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
-
-RUN touch /usr/share/elasticsearch/logs/elasticsearch.log
+RUN mkdir -p /usr/share/elasticsearch/config && \
+mkdir /usr/share/elasticsearch/logs && \
+touch /usr/share/elasticsearch/logs/elasticsearch.log
 
 COPY confs/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 COPY confs/elasticsearch/logging.yml /usr/share/elasticsearch/config/logging.yml
+
+RUN chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
 
 COPY confs/supervisord/supervisord.conf /etc/supervisord.conf
 
