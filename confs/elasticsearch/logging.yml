@@ -4,8 +4,10 @@ logger:
   action: DEBUG
   com.amazonaws: WARN
 appender:
-  console:
-    type: console
+  file:
+    type: file
+    file: /usr/share/elasticsearch/logs/elasticsearch.log
+    datePattern: "'.'yyyy-MM-dd"
     layout:
-      type: consolePattern
+      type: pattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"

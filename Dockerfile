@@ -19,7 +19,7 @@ RUN wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key
 
 RUN set -ex \
   && for path in \
-  ./srv \
+  ./usr/share/elasticsearch \
     ./logs \
     ./config \
     ./config/scripts \
@@ -27,6 +27,8 @@ RUN set -ex \
     mkdir -p "$path"; \
     chown -R elasticsearch:elasticsearch "$path"; \
   done
+
+RUN touch /usr/share/elasticsearch/logs/elasticsearch.log
 
 COPY confs/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
 
