@@ -22,11 +22,6 @@ RUN set -ex && for path in data logs config config/scripts; do \
         chown -R elasticsearch:elasticsearch "$path"; \
     done
 
-RUN mkdir -p /usr/share/elasticsearch/config/scripts && \
-mkdir /usr/share/elasticsearch/logs
-
-RUN chown -Rf elasticsearch:elasticsearch /etc/elasticsearch
-
 RUN chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
 
 RUN touch /usr/share/elasticsearch/logs/elasticsearch.log
