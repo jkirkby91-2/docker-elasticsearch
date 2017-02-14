@@ -29,7 +29,7 @@ RUN set -ex \
   done
 
 RUN mkdir -p /usr/share/elasticsearch/config/scripts && \
-mkdir /srv/data
+mkdir /usr/share/elasticsearch/logs
 
 RUN touch /usr/share/elasticsearch/logs/elasticsearch.log
 
