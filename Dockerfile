@@ -28,6 +28,9 @@ RUN set -ex \
     chown -R elasticsearch:elasticsearch "$path"; \
   done
 
+RUN mkdir -p /usr/share/elasticsearch/config/scripts && \
+mkdir /srv/data
+
 RUN touch /usr/share/elasticsearch/logs/elasticsearch.log
 
 COPY confs/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml
