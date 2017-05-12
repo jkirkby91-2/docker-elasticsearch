@@ -2,9 +2,6 @@ FROM jkirkby91/docker-java:latest
 
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
-ARG CLUSTERNAME
-ENV ELASTICSEARCH_CLUSTERNAME = CLUSTERNAME
-
 RUN groupadd --gid 1000 elasticsearch \
   && useradd --uid 1000 --gid elasticsearch --shell /bin/bash --create-home elasticsearch
 
