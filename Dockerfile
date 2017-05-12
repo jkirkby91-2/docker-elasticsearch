@@ -2,6 +2,9 @@ FROM jkirkby91/docker-java:latest
 
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
+ARG CLUSTERNAME
+ENV ELASTICSEARCH_CLUSTERNAME = CLUSTERNAME
+
 RUN groupadd --gid 1000 elasticsearch \
   && useradd --uid 1000 --gid elasticsearch --shell /bin/bash --create-home elasticsearch
 
@@ -21,6 +24,8 @@ RUN mkdir -p /usr/share/elasticsearch/config && \
 mkdir /usr/share/elasticsearch/logs && \
 touch /usr/share/elasticsearch/logs/elasticsearch.log
 
+RUN mkdir /srv/data
+
 COPY confs/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 COPY confs/elasticsearch/logging.yml /usr/share/elasticsearch/config/logging.yml
@@ -36,6 +41,19 @@ COPY start.sh /start.sh
 RUN chmod 777 /start.sh
 
 WORKDIR /usr/share/elasticsearch
+
+RUN chown -Rf elasticsearch:elasticsearch /srv && \
+chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch/  && \
+chown -Rf elasticsearch:elasticsearch /etc/elasticsearch
+
+RUN sed -i -e "s%#ES_HOME=/usr/share/elasticsearch%ES_HOME=/usr/share/elasticsearch%g" /etc/default/elasticsearch && \
+sed -i -e "s%#CONF_DIR=/etc/elasticsearch%CONF_DIR=/etc/elasticsearch%g" /etc/default/elasticsearch && \
+sed -i -e "s%#DATA_DIR=/var/lib/elasticsearch%DATA_DIR=/srv/data%g" /etc/default/elasticsearch && \
+sed -i -e "s%#LOG_DIR=/var/log/elasticsearch%LOG_DIR=/var/log/elasticsearch%g" /etc/default/elasticsearch
+
+USER elasticsearch
+
+VOLUME ["/srv"]
 
 EXPOSE 9200 9300
 
