@@ -26,9 +26,9 @@ touch /usr/share/elasticsearch/logs/elasticsearch.log
 
 RUN mkdir /srv/data
 
-COPY confs/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
+#COPY confs/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
-COPY confs/elasticsearch/logging.yml /usr/share/elasticsearch/config/logging.yml
+#COPY confs/elasticsearch/logging.yml /usr/share/elasticsearch/config/logging.yml
 
 RUN chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
 
@@ -53,7 +53,7 @@ sed -i -e "s%#LOG_DIR=/var/log/elasticsearch%LOG_DIR=/var/log/elasticsearch%g" /
 
 USER elasticsearch
 
-VOLUME ["/srv"]
+VOLUME ["/usr/share/elasticsearch/config"]
 
 EXPOSE 9200 9300
 
