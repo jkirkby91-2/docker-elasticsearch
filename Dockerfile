@@ -27,7 +27,7 @@ touch /usr/share/elasticsearch/logs/elasticsearch.log
 
 RUN chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
 
-RUN chown -Rf elasticsearch:elasticsearch /srv/data
+RUN chown -Rf elasticsearch:elasticsearch /srv
 
 COPY confs/supervisord/supervisord.conf /etc/supervisord.conf
 
@@ -49,6 +49,8 @@ sed -i -e "s%#LOG_DIR=/var/log/elasticsearch%LOG_DIR=/var/log/elasticsearch%g" /
 USER elasticsearch
 
 RUN mkdir /srv/data
+
+RUN chown -Rf elasticsearch:elasticsearch /srv/data
 
 WORKDIR /usr/share/elasticsearch
 
