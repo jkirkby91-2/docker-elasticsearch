@@ -21,13 +21,13 @@ RUN mkdir -p /usr/share/elasticsearch/config && \
 mkdir /usr/share/elasticsearch/logs && \
 touch /usr/share/elasticsearch/logs/elasticsearch.log
 
-RUN mkdir /srv/data
-
 #COPY confs/elasticsearch/elasticsearch.yml /usr/share/elasticsearch/config/elasticsearch.yml
 
 #COPY confs/elasticsearch/logging.yml /usr/share/elasticsearch/config/logging.yml
 
 RUN chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch
+
+RUN chown -Rf elasticsearch:elasticsearch /srv/data
 
 COPY confs/supervisord/supervisord.conf /etc/supervisord.conf
 
@@ -36,8 +36,6 @@ COPY confs/apparmor/elasticsearch.conf /etc/apparmor.d/elasticsearch.conf
 COPY start.sh /start.sh
 
 RUN chmod 777 /start.sh
-
-WORKDIR /usr/share/elasticsearch
 
 RUN chown -Rf elasticsearch:elasticsearch /srv && \
 chown -Rf elasticsearch:elasticsearch /usr/share/elasticsearch/  && \
@@ -49,6 +47,10 @@ sed -i -e "s%#DATA_DIR=/var/lib/elasticsearch%DATA_DIR=/srv/data%g" /etc/default
 sed -i -e "s%#LOG_DIR=/var/log/elasticsearch%LOG_DIR=/var/log/elasticsearch%g" /etc/default/elasticsearch
 
 USER elasticsearch
+
+RUN mkdir /srv/data
+
+WORKDIR /usr/share/elasticsearch
 
 VOLUME ["/usr/share/elasticsearch/config"]
 
